@@ -1,18 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
-int inserir_aluno();
-int listar_aluno();
-int remover_aluno();
-int procurar_aluno();
-int tamanho_aluno();
-
-int sair();
+#include "biblioteca.h"
 
 
 int menu;
-
 
 int main(void) {
     int VarLoop = 1; // Variável responsável por fazer o loop contínuo do menu.
