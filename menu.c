@@ -17,17 +17,20 @@ int main(void)
         printf("\n>>>>> Gestão de alunos <<<<<");
 
         printf("\n\n1 - Cadastrar aluno");
-        printf("\n4 - Listar aluno");
-        printf("\n6 - Remover aluno");
-        printf("\n7 - Procurar aluno");
-        printf("\n8 - Tamanho aluno");
-        printf("\n-1 - Sair do menu\n");
+        printf("\n2 - Remover aluno");
+        printf("\n3 - Listar aluno");
+        printf("\n4 - Ver alunos aprovados");
+        printf("\n5 - Ver alunos reprovados");
+        printf("\n6 - Procurar aluno");
+        printf("\n0 - Sair do menu\n");
 
         printf("\nSelecione uma opção: ");
         scanf("%d", &menu);
 
         // declaraç]ao de variaveis que possivelmente serão usadas nas opções
-        int matricula_remover;
+        int media_pra_passar;
+        int faltas_pra_passar;
+        char matricula_remover[50];
         aluno aluno_novo;
 
         // Limpa o buffer de entrada
@@ -39,7 +42,7 @@ int main(void)
         case 1:
             // perguntar ao usuário os dados do aluno
             printf("\nDigite a matrícula do aluno: ");
-            scanf("%d", &aluno_novo.matricula);
+            scanf("%[^\n]s", aluno_novo.matricula);
             // pegar o nome do aluno mesmo com ESPAÇOS
             // Limpar o buffer de entrada
             int ch;
@@ -56,22 +59,18 @@ int main(void)
             scanf("%f", &aluno_novo.media);
             printf("\nDigite o numero de faltas do aluno: ");
             scanf("%d", &aluno_novo.faltas);
+
             inserir_aluno(aluno_novo);
 
+            getchar();
             printf("\nPressione Enter para continuar...");
             getchar(); // Aguarda o usuário pressionar Enter
             break;
 
-        case 4:
-            listar_alunos();
-            printf("\nPressione Enter para continuar...");
-            getchar(); // Aguarda o usuário pressionar Enter
-            break;
-
-        case 6:
+        case 2:
             // receber a matricula do aluno a ser removido
             printf("\nDigite a matrícula do aluno a ser removido: ");
-            scanf("%i", &matricula_remover);
+            scanf("%[^\n]s", matricula_remover);
 
             remover_aluno(matricula_remover);
 
@@ -80,19 +79,46 @@ int main(void)
             getchar(); // Aguarda o usuário pressionar Enter
             break;
 
-        case 7:
-            procurar_aluno();
+        case 3:
+            listar_alunos();
             printf("\nPressione Enter para continuar...");
             getchar(); // Aguarda o usuário pressionar Enter
             break;
 
-        case 8:
-            tamanho_aluno();
+        case 4:
+            printf("\nDigite a media para passar: ");
+            scanf("%d", &media_pra_passar);
+
+            printf("\nDigite o numero máximo de faltas para passar: ");
+            scanf("%d", &faltas_pra_passar);
+
+            alunos_aprovados(media_pra_passar, faltas_pra_passar);
+
+            getchar();
+            printf("\nPressione Enter para continuar...");
+            getchar(); // Aguarda o usuário pressionar Enter
+            break;
+        case 5:
+            printf("\nDigite a media para passar: ");
+            scanf("%d", &media_pra_passar);
+
+            printf("\nDigite o numero máximo de faltas para passar: ");
+            scanf("%d", &faltas_pra_passar);
+
+            alunos_reprovados(media_pra_passar, faltas_pra_passar);
+
+            getchar();
             printf("\nPressione Enter para continuar...");
             getchar(); // Aguarda o usuário pressionar Enter
             break;
 
-        case -1:
+        case 6:
+            // procurar_aluno();
+            printf("\nPressione Enter para continuar...");
+            getchar(); // Aguarda o usuário pressionar Enter
+            break;
+
+        case 0:
             printf("\nSaindo do menu...\n");
             VarLoop = 0; // Encerra o loop principal
             break;
