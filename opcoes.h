@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <string.h>
-
 typedef struct // struct dos alunos
 {
     char matricula[50];
@@ -16,25 +13,6 @@ typedef struct // struct da turma
     int qtdAlunos;
     int id;
 } turma;
-
-void ler_alunos(int *qtde, aluno alunos[])
-{
-    FILE *arq;
-    int i = 0;
-    arq = fopen("Database-Alunos.txt", "r");
-
-    if (arq == NULL)
-        printf("ERRO! Nao foi possivel abrir arquivo\n");
-    else
-    {
-        while (fscanf(arq, "%s|%f|%s|%d|%i", alunos[i].matricula, &alunos[i].media, alunos[i].nome, &alunos[i].codTurma, &alunos[i].faltas) != EOF)
-            i++;
-
-        fclose(arq);
-    }
-
-    *qtde = i;
-}
 
 void inserir_aluno(aluno a)
 {
@@ -54,6 +32,12 @@ void inserir_aluno(aluno a)
         printf("ERRO! Nome nao pode ser vazio\n");
         return;
     }
+    if (strcmp(a.nome, " ") == 0 || strcmp(a.nome, "") == 0)
+    {
+        printf("ERRO! Nome nao pode ser vazio\n");
+        return;
+    }
+    
 
     FILE *arq;
     arq = fopen("arquivo-alunos.txt", "r");
@@ -210,6 +194,92 @@ void alunos_reprovados(float media, int faltas)
                 printf("\n");
             }
         }
+        fclose(arq);
+    }
+}
+
+//criar uma função para procurar um aluno pela matriucula
+void procurar_aluno(char matricula[])
+{
+    FILE *arq;
+    arq = fopen("arquivo-alunos.txt", "r");
+
+    if (arq == NULL)
+        printf("ERRO! Nao foi possivel abrir arquivo\n");
+    else
+    {
+        aluno a;
+        int found = 0; // flag para verificar se o aluno foi encontrado
+
+        while (fscanf(arq, "%[^;];%f;%[^;];%d;%i\n", a.matricula, &a.media, a.nome, &a.codTurma, &a.faltas) != EOF)
+        {
+            if (strcmp(a.matricula, matricula) == 0)
+            {
+                found = 1; // aluno encontrado
+                printf("Matricula: %s\n", a.matricula);
+                printf("Media: %.2f\n", a.media);
+                printf("Nome: %s\n", a.nome);
+                printf("Codigo da turma: %d\n", a.codTurma);
+                printf("Faltas: %i\n", a.faltas);
+                printf("\n");
+            }
+        }
+
+        fclose(arq);
+
+        if (!found)
+        {
+            printf("Erro: matricula não encontrada.\n");
+        }
+    }
+}
+
+void quantidade_alunos_turma()
+{
+    FILE *arq;
+    arq = fopen("arquivo-alunos.txt", "r");
+
+    if (arq == NULL)
+        printf("ERRO! Nao foi possivel abrir arquivo\n");
+    else
+    {
+        aluno a;
+        int turma;
+        int qtdAlunos = 0;
+        int qtdAlunosTotal = 0;
+        int turmaAnterior = 0;
+
+        while (fscanf(arq, "%[^;];%f;%[^;];%d;%i\n", a.matricula, &a.media, a.nome, &a.codTurma, &a.faltas) != EOF)
+        {
+            turma = a.codTurma;
+            if (turma != turmaAnterior)
+            {
+                if (turmaAnterior != 0)
+                {
+                    printf("Turma %d: %d alunos\n", turmaAnterior, qtdAlunos);
+                    qtdAlunosTotal += qtdAlunos;
+                }
+                qtdAlunos = 0;
+            }
+            qtdAlunos++;
+            turmaAnterior = turma;
+        }
+        printf("Turma %d: %d alunos\n", turmaAnterior, qtdAlunos);
+        qtdAlunosTotal += qtdAlunos;
+        printf("Total de alunos cadastrados: %d\n", qtdAlunosTotal);
+        fclose(arq);
+    }
+}
+
+//criar uma função que verifica se o arquivo existe, se não existir cria ele
+void verifica_arquivo()
+{
+    FILE *arq;
+    arq = fopen("arquivo-alunos.txt", "r");
+
+    if (arq == NULL)
+    {
+        arq = fopen("arquivo-alunos.txt", "w");
         fclose(arq);
     }
 }

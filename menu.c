@@ -12,6 +12,9 @@ int main(void)
     int VarLoop = 1; // Variável responsável por fazer o loop contínuo do menu.
     int c;           // Variável para armazenar o caractere lido
 
+    // verifica se existe um arquivo-alunos.txt, senão existia cria ele atraves de uma função que esta nas opcoes
+    verifica_arquivo();
+     
     while (VarLoop == 1)
     { // Menu de opções
         printf("\n>>>>> Gestão de alunos <<<<<");
@@ -22,6 +25,7 @@ int main(void)
         printf("\n4 - Ver alunos aprovados");
         printf("\n5 - Ver alunos reprovados");
         printf("\n6 - Procurar aluno");
+        printf("\n7 - Quantidade de alunos por turma\n");
         printf("\n0 - Sair do menu\n");
 
         printf("\nSelecione uma opção: ");
@@ -30,7 +34,7 @@ int main(void)
         // declaraç]ao de variaveis que possivelmente serão usadas nas opções
         int media_pra_passar;
         int faltas_pra_passar;
-        char matricula_remover[50];
+        char matricula_pra_manipular[50];
         aluno aluno_novo;
 
         // Limpa o buffer de entrada
@@ -70,9 +74,9 @@ int main(void)
         case 2:
             // receber a matricula do aluno a ser removido
             printf("\nDigite a matrícula do aluno a ser removido: ");
-            scanf("%[^\n]s", matricula_remover);
+            scanf("%[^\n]s", matricula_pra_manipular);
 
-            remover_aluno(matricula_remover);
+            remover_aluno(matricula_pra_manipular);
 
             getchar();
             printf("\nPressione Enter para continuar...");
@@ -113,11 +117,20 @@ int main(void)
             break;
 
         case 6:
-            // procurar_aluno();
+            scanf("%[^\n]s", matricula_pra_manipular);
+
+            procurar_aluno(matricula_pra_manipular);
+
+            getchar();
             printf("\nPressione Enter para continuar...");
             getchar(); // Aguarda o usuário pressionar Enter
             break;
 
+        case 7:
+            quantidade_alunos_turma();
+            printf("\nPressione Enter para continuar...");
+            getchar(); // Aguarda o usuário pressionar Enter
+            break;
         case 0:
             printf("\nSaindo do menu...\n");
             VarLoop = 0; // Encerra o loop principal
