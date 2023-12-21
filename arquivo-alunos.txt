@@ -1,0 +1,5 @@
+706;10.00;victor alexndre saraiva pimentel;1234;0
+1234;7.50;João da Silva Santos;78901;2
+5678;8.00;Maria Clara de Souza;23456;1
+9012;6.75;Pedro Paulo Ribeiro;34567;3
+3456;9.00;Ana Beatriz Costa;45678;0

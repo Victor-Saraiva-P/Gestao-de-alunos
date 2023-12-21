@@ -5,6 +5,8 @@
 
 int menu;
 
+int qtdtotal = 0;
+
 int main(void)
 {
     int VarLoop = 1; // Variável responsável por fazer o loop contínuo do menu.
@@ -24,6 +26,10 @@ int main(void)
         printf("\nSelecione uma opção: ");
         scanf("%d", &menu);
 
+        // declaraç]ao de variaveis que possivelmente serão usadas nas opções
+        int matricula_remover;
+        aluno aluno_novo;
+
         // Limpa o buffer de entrada
         while ((c = getchar()) != '\n' && c != EOF)
             ;
@@ -31,31 +37,57 @@ int main(void)
         switch (menu)
         {
         case 1:
-            // inserir_aluno();
+            // perguntar ao usuário os dados do aluno
+            printf("\nDigite a matrícula do aluno: ");
+            scanf("%d", &aluno_novo.matricula);
+            // pegar o nome do aluno mesmo com ESPAÇOS
+            // Limpar o buffer de entrada
+            int ch;
+            while ((ch = getchar()) != '\n' && ch != EOF)
+                ;
+
+            printf("\nDigite o nome do aluno: ");
+            scanf("%[^\n]s", aluno_novo.nome);
+
+            // receber o resto dos dados
+            printf("\nDigite o código da turma do aluno: ");
+            scanf("%d", &aluno_novo.codTurma);
+            printf("\nDigite a media do aluno: ");
+            scanf("%f", &aluno_novo.media);
+            printf("\nDigite o numero de faltas do aluno: ");
+            scanf("%d", &aluno_novo.faltas);
+            inserir_aluno(aluno_novo);
+
             printf("\nPressione Enter para continuar...");
             getchar(); // Aguarda o usuário pressionar Enter
             break;
 
         case 4:
-            // listar_aluno();
+            listar_alunos();
             printf("\nPressione Enter para continuar...");
             getchar(); // Aguarda o usuário pressionar Enter
             break;
 
         case 6:
-            // remover_aluno();
+            // receber a matricula do aluno a ser removido
+            printf("\nDigite a matrícula do aluno a ser removido: ");
+            scanf("%i", &matricula_remover);
+
+            remover_aluno(matricula_remover);
+
+            getchar();
             printf("\nPressione Enter para continuar...");
             getchar(); // Aguarda o usuário pressionar Enter
             break;
 
         case 7:
-            // procurar_aluno();
+            procurar_aluno();
             printf("\nPressione Enter para continuar...");
             getchar(); // Aguarda o usuário pressionar Enter
             break;
 
         case 8:
-            // tamanho_aluno();
+            tamanho_aluno();
             printf("\nPressione Enter para continuar...");
             getchar(); // Aguarda o usuário pressionar Enter
             break;
