@@ -14,7 +14,7 @@ int main(void)
 
     // verifica se existe um arquivo-alunos.txt, senão existia cria ele atraves de uma função que esta nas opcoes
     verifica_arquivo();
-     
+
     while (VarLoop == 1)
     { // Menu de opções
         printf("\n>>>>> Gestão de alunos <<<<<");
@@ -117,6 +117,7 @@ int main(void)
             break;
 
         case 6:
+            printf("\nDigite a matrícula do aluno a ser procurado: ");
             scanf("%[^\n]s", matricula_pra_manipular);
 
             procurar_aluno(matricula_pra_manipular);

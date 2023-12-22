@@ -37,7 +37,6 @@ void inserir_aluno(aluno a)
         printf("ERRO! Nome nao pode ser vazio\n");
         return;
     }
-    
 
     FILE *arq;
     arq = fopen("arquivo-alunos.txt", "r");
@@ -198,7 +197,7 @@ void alunos_reprovados(float media, int faltas)
     }
 }
 
-//criar uma função para procurar um aluno pela matriucula
+// criar uma função para procurar um aluno pela matriucula
 void procurar_aluno(char matricula[])
 {
     FILE *arq;
@@ -271,7 +270,7 @@ void quantidade_alunos_turma()
     }
 }
 
-//criar uma função que verifica se o arquivo existe, se não existir cria ele
+// criar uma função que verifica se o arquivo existe, se não existir cria ele
 void verifica_arquivo()
 {
     FILE *arq;
